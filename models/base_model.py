@@ -6,6 +6,7 @@ a class BaseModel that defines all common attributes/methods for other classes.
 
 from uuid import uuid4
 from datetime import datetime
+from models import storage
 
 
 class BaseModel():
@@ -16,6 +17,7 @@ class BaseModel():
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
+            storage.new(self)
         else:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
@@ -33,6 +35,7 @@ class BaseModel():
     def save(self):
         """updates the public instance attribute updated_at"""
         self.updated_at = datetime.utcnow()
+        storage.save(self)
 
     def to_dict(self):
         """returns a dictionary containing all keys/values of __dict__"""
