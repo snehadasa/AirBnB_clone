@@ -43,12 +43,13 @@ class FileStorage():
 
     def save(self):
         """serializes the json file to objects(json.dumps)"""
-        for key, value in self.__objects.items():
-            if type(value) is not dict:
-
         name = self.__file_path
         with open(name, mode="w") as f:
-            json.dump(self.__objects, f)
+            l = []
+            for key, value in self.__objects.items():
+                if type(value) is not dict:
+                    l.append(key: value.to_dict())
+                    json.dump(l, f)
 
     def reload(self):
         """deserializes json file to objects(json.loads)"""
