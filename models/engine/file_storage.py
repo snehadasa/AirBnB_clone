@@ -9,33 +9,40 @@ class FileStorage():
     """class FileStorage"""
 
     def __init__(self):
+        """retrive file_path and objects"""
         self.file_path = "file.json"
         self.objects = {}
 
     @property
     def file_path(self):
+        """property file_path"""
         return self.__file_path
 
     @file_path.setter
     def file_path(self, value):
+        """file_path setter"""
         self.__file_path = value
 
     @property
     def objects(self):
+        """property object"""
         return self.__objects
 
     @objects.setter
     def objects(self, value):
+        """objects setter"""
         self.__objects = value
 
     def all(self):
+        """returns dictionary of objects"""
         return self.objects
 
     def new(self, obj):
+        """sets in __objects to an obj with a key (object class name).id"""
         self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
 
     def save(self):
-        """serializes the json file to objects"""
+        """serializes the json file to objects(json.dumps)"""
         for key, value in self.__objects.items():
             if type(value) is not dict:
 
@@ -44,5 +51,5 @@ class FileStorage():
             json.dump(self.__objects, f)
 
     def reload(self):
-        """deserializes json file to objects"""
+        """deserializes json file to objects(json.loads)"""
 
