@@ -1,8 +1,12 @@
 #!/usr/bin/python3
-"""entry point of the command line interpreter"""
+"""This module is the entry point of the command line interpreter"""
 
 
 import cmd
+
+
+from models import storage
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
@@ -18,6 +22,17 @@ class HBNBCommand(cmd.Cmd):
         """empty line"""
         pass
 
+    def do_create(self, args):
+        """Creates new instance of BaseModel, saves to JSON file, prints id"""
+        if not args:
+            print("** class name missing **")
+            return
+        try:
+            new = eval(args)()
+            new.save()
+            print(new.id)
+        except:
+            print("** class doesn't exist **")
 
 if __name__ == "__main__":
     prompt = HBNBCommand()
