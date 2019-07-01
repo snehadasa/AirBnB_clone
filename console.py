@@ -22,7 +22,19 @@ class HBNBCommand(cmd.Cmd):
         """empty line"""
         pass
 
-    def create(self, args):
+    def do_create(self, args):
+        """method to create new instance of BaseModel"""
+        if not args:
+            print("** class name missing **")
+        elif args not in storage.classes():
+            print("** class doesn't exist **")
+        else:
+            new = eval(args)()
+            new.save()
+            print(new.id)
+
+    def do_show(self):
+        """method to print string representation of an instance"""
 
 if __name__ == "__main__":
     prompt = HBNBCommand()
