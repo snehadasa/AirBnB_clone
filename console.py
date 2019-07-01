@@ -94,6 +94,59 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
+    def do_update(self, cls=None):
+        """
+        Updates an instance based on the class name and id by adding or
+        updating attribute
+        """
+        args = cls.split()
+        d = storage.all()
+        if len(args) == 0:
+            print("** class name missing **")
+            print(d)
+            return
+        if args[0] not in HBNBCommand.name:
+            print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        key = args[0] + "." + args[1]
+        if key not in d:
+            print("** no instance found **")
+        elif len(args) == 2:
+            print("** attribute name missing **")
+        elif len(args) == 3:
+            print("** value missing **")
+        else:
+            if args[2] not in ["id", "created_at", "updated_at"]:
+                for key, value in d.items():
+                    if isint(args[3]) is True:
+                        setattr(value, args[2], int(args[3]))
+                    elif isfloat(args[3]) is True:
+                        setattr(value, args[2], float(args[3]))
+                    else:
+                        setattr(value, args[2], args[3][1:-1])
+                storage.save()
+
+
+def isfloat(value):
+    """check if the string can be converted to float"""
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+
+def isint(value):
+    """check if the string can be converted to int"""
+    try:
+        int(value)
+        return True
+    except ValueError:
+        return False
+
 if __name__ == "__main__":
     prompt = HBNBCommand()
     prompt.prompt = "(hbnb) "
