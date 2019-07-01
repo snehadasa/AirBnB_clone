@@ -3,13 +3,6 @@
 
 
 import cmd
-from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
 
 
 from models import storage
@@ -77,7 +70,6 @@ class HBNBCommand(cmd.Cmd):
             if key in storage.all():
                 del storage.all()[key]
                 storage.save()
-                print(storage.all())
             else:
                 print("** no instance found **")
 
@@ -110,7 +102,6 @@ class HBNBCommand(cmd.Cmd):
         d = storage.all()
         if len(args) == 0:
             print("** class name missing **")
-            print(d)
             return
         if args[0] not in HBNBCommand.name:
             print("** class doesn't exist **")
