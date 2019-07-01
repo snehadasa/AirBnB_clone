@@ -22,17 +22,7 @@ class HBNBCommand(cmd.Cmd):
         """empty line"""
         pass
 
-    def do_create(self, args):
-        """Creates new instance of BaseModel, saves to JSON file, prints id"""
-        if not args:
-            print("** class name missing **")
-            return
-        try:
-            new = eval(args)()
-            new.save()
-            print(new.id)
-        except:
-            print("** class doesn't exist **")
+    def create(self, args):
 
 if __name__ == "__main__":
     prompt = HBNBCommand()
