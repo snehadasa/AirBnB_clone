@@ -3,6 +3,7 @@
 
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """public class attribute Place which is set to an empty string"""
     city_id = ""

@@ -3,6 +3,7 @@
 
 from models.base_model import BaseModel
 
+
 class City(BaseModel):
     """public class attribute name which is set to an empty string"""
     name = ""
