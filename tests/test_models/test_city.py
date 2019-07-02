@@ -17,10 +17,8 @@ class TestUser(unittest.TestCase):
         """test for correct arguments"""
 
         my_object = User()
-        self.assertTrue(hasattr(my_object, "email"))
-        self.assertTrue(hasattr(my_object, "password"))
-        self.assertTrue(hasattr(my_object, "first_name"))
-        self.assertTrue(hasattr(my_object, "last_name"))
+        self.assertTrue(hasattr(my_object, "name"))
+        self.assertTrue(hasattr(my_object, "state_id"))
 
       def setUp(self):
         """setting up test methods"""
