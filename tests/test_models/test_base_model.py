@@ -5,6 +5,8 @@ import unittest
 import json
 import uuid
 import time
+import io
+import contextlib
 from models import storage
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
@@ -16,7 +18,7 @@ class TestBaseModel(unittest.TestCase):
 
     def setUp(self):
         """setting up test methods"""
-        pass
+        self.b1 = BaseModel()
 
     def tearDown(self):
         """tests test modules"""
@@ -33,9 +35,9 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(my_object, BaseModel)
         self.assertTrue(issubclass(type(my_object), BaseModel))
 
-    #def test_for_correct_arguments(self):
-    #    """test for correct arguments"""
-     #   output = 
+    def test_for_BaseModel(self):
+        """test for instance creation"""
+        my_object = BaseModel()
 
     def test_for_args(self):
         """tests to check for attributes if present"""
@@ -76,6 +78,17 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(my_object, "created_at"))
         self.assertTrue(hasattr(my_object, "updated_at"))
 
+    def test_for_args(self):
+        """tests to check for different parameters"""
+        with self.assertRaises(TypeError):
+            my_object = BaseModel(**[])
+            my_object = BaseModel(**15)
+            my_object = BaseModel(**24.66)
+            my_object = BaseModel(**"sneha")
+            self.assertTrue(hasattr(my_object, "id"))
+            self.assertTrue(hasattr(my_object, "created_at"))
+            self.assertTrue(hasattr(my_object, "updated_at"))
+
     def test_for_datetime(self):
         """test to check for datetime diff"""
         my_object = BaseModel()
@@ -101,6 +114,16 @@ class TestBaseModel(unittest.TestCase):
         """test to check for correct uuid"""
         my_object = BaseModel()
         self.assertTrue(my_object.id)
+
+    def test_for_updated_at(self):
+        """test to check for correct updated_at"""
+        my_object = BaseModel()
+        self.assertTrue(my_object.updated_at)
+
+    def test_for_created_at(self):
+        """test to check for correct created_at"""
+        my_object = BaseModel()
+        self.assertTrue(my_object.created_at)
 
 if __name__ == "__main__":
     unittest.main()
