@@ -14,15 +14,22 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     """class HBNBCommand the interpreter"""
     name = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
 
     def do_quit(self, args):
-        """Quit command to exit the program"""
+        """Quit command to exit the program
+        """
         return True
 
-    do_EOF = do_quit
+    def do_EOF(self, args):
+        """
+        Quit command to exit the program when EOF
+        """
+        print()
+        return True
 
     def emptyline(self):
         """empty line"""
