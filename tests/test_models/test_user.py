@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 """Unittest for class BaseModel"""
-
 import unittest
 import json
+import uuid
+import time
+import io
+import contextlib
 from models import storage
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from datetime import datetime
 from models.user import User
-from models.file_storage import FileStorage
 
 
 class TestUser(unittest.TestCase):
@@ -22,7 +25,7 @@ class TestUser(unittest.TestCase):
         self.assertTrue(hasattr(my_object, "first_name"))
         self.assertTrue(hasattr(my_object, "last_name"))
 
-      def setUp(self):
+    def setUp(self):
         """setting up test methods"""
         self.b1 = BaseModel()
 
@@ -142,6 +145,28 @@ class TestUser(unittest.TestCase):
         """test to check for correct uuid"""
         my_object = BaseModel()
         self.assertTrue(my_object.id)
+
+    def test_for_creating_instance_and_to_dict(self):
+        """test for creating multiple instance and to_dict method"""
+        b2 = BaseModel()
+        b2.name = "Holberton"
+        b2.my_number = 89
+        b3 = b2.to_dict()
+        self.assertEqual(type(b3), dict)
+        self.assertTrue('__class__' in b3)
+        self.assertTrue('id' in b3)
+        self.assertTrue('created_at' in b3)
+        self.assertTrue('updated_at' in b3)
+        self.assertTrue('name' in b3)
+        self.assertTrue('my_number' in b3)
+
+        b4 = BaseModel(**b3)
+        self.assertEqual(b2.id, b4.id)
+        self.assertEqual(b2.created_at, b4.created_at)
+        self.assertEqual(b2.updated_at, b4.updated_at)
+        self.assertEqual(b2.name, b4.name)
+        self.assertEqual(b2.my_number, b4.my_number)
+        self.assertNotEqual(b2, b4)
 
 if __name__ == "__main__":
     unittest.main()
