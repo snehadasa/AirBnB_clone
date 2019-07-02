@@ -7,12 +7,12 @@ import uuid
 import time
 import os
 from models import storage
-from modelsi.engine.file_storage import FileStorage
+from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from datetime import datetime
 
 
-class TestFileStorage(unittest.TestBase):
+class TestFileStorage(unittest.TestCase):
     """unittests for storage class FileStorage"""
 
     def setUp(self):
@@ -24,12 +24,14 @@ class TestFileStorage(unittest.TestBase):
         pass
 
     def test_save_method(self):
+        """test to check for the attr is string"""
         attr = {"id": {"__class__": "BaseModel"}}
-        self.assertEqual(type(json.dumps(attr)) is str)
+        self.assertTrue(type(json.dumps(attr)) is str)
 
     def test_for_attributes(self):
-        self.assertTrue(hasattr(self.set, "name"))
-        self.assertTrue(hasattr(self.set, "my_number"))
-        self.assertTrue(hasattr(self.set, "created_at"))
-        self.assertTrue(hasattr(self.set, "updated_at"))
-        self.assertTrue(hasattr(self.set, "id"))
+        """test to check for the correct attribute"""
+        self.assertFalse(hasattr(self.set, "name"))
+        self.assertFalse(hasattr(self.set, "my_number"))
+        self.assertFalse(hasattr(self.set, "created_at"))
+        self.assertFalse(hasattr(self.set, "updated_at"))
+        self.assertFalse(hasattr(self.set, "id"))

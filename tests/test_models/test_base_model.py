@@ -5,14 +5,13 @@ import unittest
 import json
 import uuid
 import time
-import os
 from models import storage
-from modelsi.engine.file_storage import FileStorage
+from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from datetime import datetime
 
 
-class TestBaseModel(unittest.TestBase):
+class TestBaseModel(unittest.TestCase):
     """unittests for BaseModel class"""
 
     def setUp(self):
@@ -20,72 +19,88 @@ class TestBaseModel(unittest.TestBase):
         pass
 
     def tearDown(self):
-        """tears test modules"""
+        """tests test modules"""
         pass
 
     def test_class_type(self):
-        cl = BaseModel()
-        self.assertEqual(cl.__class__.__name__, "BaseModel")
+        """tests for correct class type"""
+        my_object = BaseModel()
+        self.assertEqual(my_object.__class__.__name__, "BaseModel")
 
     def test_to_dict(self):
-        cl = BaseModel()
-        self.assertIsInstane(cl, BaseModel)
-        self.assertTrue(issubclass(type(cl), BaseModel))
+        """tests for isinstance and is sub class of the superclass"""
+        my_object = BaseModel()
+        self.assertIsInstance(my_object, BaseModel)
+        self.assertTrue(issubclass(type(my_object), BaseModel))
 
-    def test_to_kwargs(self):
-        self.assertNotEqual(len(kwargs), 0)
+    #def test_for_correct_arguments(self):
+    #    """test for correct arguments"""
+     #   output = 
 
     def test_for_args(self):
-        my_object = Basemodel()
+        """tests to check for attributes if present"""
+        my_object = BaseModel()
         self.assertTrue(hasattr(my_object, "id"))
         self.assertTrue(hasattr(my_object, "created_at"))
         self.assertTrue(hasattr(my_object, "updated_at"))
 
     def test_to_invalid_args(self):
+        """test to check for invalid argument"""
         with self.assertRaises(TypeError):
-        my_object = BaseModel(*/"Holberton")
+            my_object = BaseModel(**"Holberton")
 
     def test_to_wrong_args(self):
+        """test to check for wrong args being passed"""
         with self.assertRaises(TypeError):
-        my_object = BaseModel(**Holber)
+            my_object = BaseModel(**"Holber")
 
     def test_to_wrong_type(self):
+        """test to check for passing int"""
         with self.assertRaises(TypeError):
-        my_object = BaseModel(**12)
+            my_object = BaseModel(**12)
 
     def test_to_wrong_type_float(self):
+        """test to check for passing float"""
         with self.assertRaises(TypeError):
-        my_object = BaseModel(**5.2)
+            my_object = BaseModel(**5.2)
 
     def test_wrong_type_for_args(self):
-        with self.assertRaises(TypeError):
-        my_object = BaseModel(**float("betty"))
+        """test to check for passing float"""
+        with self.assertRaises(ValueError):
+            my_object = BaseModel(**float("betty"))
 
     def test_for_empty_dict(self):
+        """test to check for attributes in the dict"""
         my_object = BaseModel(**{})
         self.assertTrue(hasattr(my_object, "id"))
         self.assertTrue(hasattr(my_object, "created_at"))
         self.assertTrue(hasattr(my_object, "updated_at"))
 
-    def test_for_datetime_format(self):
-        date_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.assertEqual(date_format, )
+    def test_for_datetime(self):
+        """test to check for datetime diff"""
+        my_object = BaseModel()
+        date = datetime.now()
+        time_diff = my_object.updated_at - my_object.created_at
+        self.assertTrue(abs(time_diff.total_seconds()) < 0.01)
+
+    def test_for_datetime(self):
+        """test to check for approx time diff"""
+        my_object = BaseModel()
+        date = datetime.now()
+        time_diff = my_object.created_at - my_object.updated_at
+        self.assertTrue(abs(time_diff.total_seconds()) < 0.1)
 
     def test_to_string(self):
+        """test to check for correct string being passed"""
         my_object = BaseModel()
         s = "[{}] ({}) {}".format(my_object.__class__.__name__,
                                   my_object.id, my_object.__dict__)
         self.assertEqual(s, str(my_object))
 
     def test_for_uuid(self):
+        """test to check for correct uuid"""
         my_object = BaseModel()
         self.assertTrue(my_object.id)
-
-    def test_to_json_file(self):
-        my_object = BaseModel()
-        date = datetime.now()
-        my_object.save()
-
 
 if __name__ == "__main__":
     unittest.main()
