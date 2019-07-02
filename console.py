@@ -154,15 +154,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    def onecmd(self, s):
-        """
-        Interpret the argument as though it had been typed
-        in response to the prompt
-        """
-        print("onecmd {}".format(s))
-        print(cmd.Cmd.onecmd(self, s))
-        return cmd.Cmd.onecmd(self, s)
-
     def default(self, line):
         """default method if system doesn't recognize all command above"""
         l = line.split(".")
