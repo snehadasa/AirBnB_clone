@@ -55,13 +55,13 @@ class HBNBCommand(cmd.Cmd):
         if not cls:
             print("** class name missing **")
             return
-        l = cls.split()
-        if l[0] not in HBNBCommand.name:
+        li = cls.split()
+        if li[0] not in HBNBCommand.name:
             print("** class doesn't exist **")
         elif len(l) < 2:
             print("** instance id missing **")
         else:
-            key = l[0] + "." + l[1]
+            key = li[0] + "." + li[1]
             if key in storage.all():
                 print(storage.all()[key])
             else:
@@ -72,13 +72,13 @@ class HBNBCommand(cmd.Cmd):
         if not cls:
             print("** class name missing **")
             return
-        l = cls.split()
-        if l[0] not in HBNBCommand.name:
+        li = cls.split()
+        if li[0] not in HBNBCommand.name:
             print("** class doesn't exist **")
-        elif len(l) < 2:
+        elif len(li) < 2:
             print("** instance id missing **")
         else:
-            key = l[0] + "." + l[1]
+            key = li[0] + "." + li[1]
             if key in storage.all():
                 del storage.all()[key]
                 storage.save()
@@ -90,18 +90,18 @@ class HBNBCommand(cmd.Cmd):
         Prints all string representation of all instances based
         or not on the class name
         """
-        l = []
+        li = []
         d = storage.all()
         if not cls:
             for value in d.values():
-                l.append(str(value))
-            print(l)
+                li.append(str(value))
+            print(li)
         else:
             if cls in HBNBCommand.name:
                 for key, value in d.items():
                     if key.split(".")[0] == cls:
-                        l.append(str(value))
-                print(l)
+                        li.append(str(value))
+                print(li)
             else:
                 print("** class doesn't exist **")
 
@@ -156,6 +156,7 @@ def isint(value):
         return True
     except ValueError:
         return False
+
 
 if __name__ == "__main__":
     prompt = HBNBCommand()
