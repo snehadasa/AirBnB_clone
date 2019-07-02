@@ -31,3 +31,6 @@ class TestBaseModel(unittest.TestBase):
         cl = BaseModel()
         self.assertIsInstane(cl, BaseModel)
         self.assertTrue(issubclass(type(cl), BaseModel))
+
+    def test_to_kwargs(self):
+        self.assertNotEqual(len(kwargs), 0)
