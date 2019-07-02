@@ -118,7 +118,7 @@ class TestBaseModel(unittest.TestCase):
         time_diff = my_object.updated_at - my_object.created_at
         self.assertTrue(abs(time_diff.total_seconds()) < 0.01)
 
-    def test_for_datetime(self):
+    def test_for_datetime_2(self):
         """test to check for approx time diff"""
         my_object = BaseModel()
         date = datetime.now()
@@ -136,6 +136,28 @@ class TestBaseModel(unittest.TestCase):
         """test to check for correct uuid"""
         my_object = BaseModel()
         self.assertTrue(my_object.id)
+
+    def test_for_creating_instance_and_to_dict(self):
+        """test for creating multiple instance and to_dict method"""
+        b2 = BaseModel()
+        b2.name = "Holberton"
+        b2.my_number = 89
+        b3 = b2.to_dict()
+        self.assertEqual(type(b3), dict)
+        self.assertTrue('__class__' in b3)
+        self.assertTrue('id' in b3)
+        self.assertTrue('created_at' in b3)
+        self.assertTrue('updated_at' in b3)
+        self.assertTrue('name' in b3)
+        self.assertTrue('my_number' in b3)
+
+        b4 = BaseModel(**b3)
+        self.assertEqual(b2.id, b4.id)
+        self.assertEqual(b2.created_at, b4.created_at)
+        self.assertEqual(b2.updated_at, b4.updated_at)
+        self.assertEqual(b2.name, b4.name)
+        self.assertEqual(b2.my_number, b4.my_number)
+        self.assertNotEqual(b2, b4)
 
 if __name__ == "__main__":
     unittest.main()
