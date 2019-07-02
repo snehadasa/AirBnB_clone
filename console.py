@@ -139,6 +139,46 @@ class HBNBCommand(cmd.Cmd):
                         setattr(value, args[2], args[3][1:-1])
                 storage.save()
 
+    def do_count(self, cls=None):
+        """to retrieve the number of instances of a class"""
+        if not cls:
+            print("** class name missing **")
+            return
+        c = 0
+        d = storage.all()
+        if cls in HBNBCommand.name:
+            for key, value in d.items():
+                if key.split(".")[0] == cls:
+                    c += 1
+            print(c)
+        else:
+            print("** class doesn't exist **")
+
+    def onecmd(self, s):
+        """
+        Interpret the argument as though it had been typed
+        in response to the prompt
+        """
+        print("onecmd {}".format(s))
+        print(cmd.Cmd.onecmd(self, s))
+        return cmd.Cmd.onecmd(self, s)
+
+    def default(self, line):
+        """default method if system doesn't recognize all command above"""
+        l = line.split(".")
+        if l[1] == "all()":
+            return self.do_all(l[0])
+        if l[1] == "count()":
+            return self.do_count(l[0])
+        if l[1][:4] == "show":
+            a = l[1].split('"')
+            name = l[0] + " " + a[1]
+            return self.do_show(name)
+        if l[1][:7] == "destroy":
+            b = l[1].split('"')
+            name_1 = l[0] + " " + b[1]
+            return self.do_destroy(name_1)
+
 
 def isfloat(value):
     """check if the string can be converted to float"""
