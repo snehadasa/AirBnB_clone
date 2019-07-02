@@ -26,8 +26,11 @@ class TestBaseModel(unittest.TestCase):
 
     def test_class_type(self):
         """tests for correct class type"""
-        my_object = BaseModel()
-        self.assertEqual(my_object.__class__.__name__, "BaseModel")
+        obj = BaseModel()
+        self.assertEqual(obj.__class__.__name__, "BaseModel")
+        self.assertEqual(type(obj.id), str)
+        self.assertEqual(type(obj.updated_at), datetime)
+        self.assertEqual(type(obj.created_at), datetime)
 
     def test_to_dict(self):
         """tests for isinstance and is sub class of the superclass"""
@@ -35,11 +38,30 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(my_object, BaseModel)
         self.assertTrue(issubclass(type(my_object), BaseModel))
 
-    def test_for_BaseModel(self):
-        """test for instance creation"""
-        my_object = BaseModel()
+    def test_check_args(self):
+        """check for passing args"""
+        b = BaseModel(12)
+        self.assertNotEqual(b.id, 12)
+        b = BaseModel("test")
+        self.assertNotEqual(b.id, "test")
 
-    def test_for_args(self):
+    def test_for_created_at(self):
+        """test for instance creation"""
+        b1 = BaseModel()
+        self.assertEqual(type(b1.created_at), type(datetime.now()))
+        self.assertTrue(hasattr(b1, "created_at"))
+
+    def test_for_updated_at(self):
+        """test for updated_at"""
+        b1 = BaseModel()
+        self.assertTrue(hasattr(b1, "updated_at"))
+        self.assertEqual(type(b1.updated_at), type(datetime.now()))
+        time = b1.updated_at
+        self.assertEqual(time, b1.updated_at)
+        b1.save()
+        self.assertNotEqual(time, b1.updated_at)
+
+    def test_for_attribute(self):
         """tests to check for attributes if present"""
         my_object = BaseModel()
         self.assertTrue(hasattr(my_object, "id"))
@@ -78,7 +100,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(my_object, "created_at"))
         self.assertTrue(hasattr(my_object, "updated_at"))
 
-    def test_for_args(self):
+    def test_for_different_args(self):
         """tests to check for different parameters"""
         with self.assertRaises(TypeError):
             my_object = BaseModel(**[])
@@ -114,16 +136,6 @@ class TestBaseModel(unittest.TestCase):
         """test to check for correct uuid"""
         my_object = BaseModel()
         self.assertTrue(my_object.id)
-
-    def test_for_updated_at(self):
-        """test to check for correct updated_at"""
-        my_object = BaseModel()
-        self.assertTrue(my_object.updated_at)
-
-    def test_for_created_at(self):
-        """test to check for correct created_at"""
-        my_object = BaseModel()
-        self.assertTrue(my_object.created_at)
 
 if __name__ == "__main__":
     unittest.main()
