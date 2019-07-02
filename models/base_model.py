@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-a class BaseModel that defines all common attributes/methods for other classes.
+This model create a class BaseModel that defines all common attributes/methods
+for other classes.
 """
 
 
