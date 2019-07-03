@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Unittest for class BaseModel"""
-
 import unittest
 import json
 import uuid
@@ -14,167 +13,81 @@ from datetime import datetime
 from models.place import Place
 
 
-class TestUser(unittest.TestCase):
-    """unittests for User Class"""
-
-    def test_for_attr(self):
-        """test for correct arguments"""
-
-        my_object = Place()
-        self.assertTrue(hasattr(my_object, "city_id"))
-        self.assertTrue(hasattr(my_object, "user_id"))
-        self.assertTrue(hasattr(my_object, "name"))
-        self.assertTrue(hasattr(my_object, "description"))
-        self.assertTrue(hasattr(my_object, "number_rooms"))
-        self.assertTrue(hasattr(my_object, "number_bathrooms"))
-        self.assertTrue(hasattr(my_object, "max_guest"))
-        self.assertTrue(hasattr(my_object, "price_by_night"))
-        self.assertTrue(hasattr(my_object, "latitude"))
-        self.assertTrue(hasattr(my_object, "longitude"))
-        self.assertTrue(hasattr(my_object, "amenity_ids"))
-
+class TestPlace(unittest.TestCase):
+    """unittests for Place Class"""
     def setUp(self):
         """setting up test methods"""
-        self.b1 = BaseModel()
+        pass
 
     def tearDown(self):
         """tests test modules"""
         pass
 
-    def test_class_type(self):
-        """tests for correct class type"""
-        obj = BaseModel()
-        self.assertEqual(obj.__class__.__name__, "BaseModel")
-        self.assertEqual(type(obj.id), str)
-        self.assertEqual(type(obj.updated_at), datetime)
-        self.assertEqual(type(obj.created_at), datetime)
+    def test_city_id(self):
+        """test for city_id"""
+        e = Place()
+        e.city_id = "abc"
+        self.assertEqual(type(Place.city_id), str)
 
-    def test_to_dict(self):
-        """tests for isinstance and is sub class of the superclass"""
-        my_object = BaseModel()
-        self.assertIsInstance(my_object, BaseModel)
-        self.assertTrue(issubclass(type(my_object), BaseModel))
+    def test_user_id(self):
+        """test for user_id"""
+        p = Place()
+        p.user_id = "efg"
+        self.assertEqual(type(Place.user_id), str)
 
-    def test_check_args(self):
-        """check for passing args"""
-        b = BaseModel(12)
-        self.assertNotEqual(b.id, 12)
-        b = BaseModel("test")
-        self.assertNotEqual(b.id, "test")
+    def test_name(self):
+        """test for name"""
+        fn = Place()
+        fn.name = "sneha"
+        self.assertEqual(type(Place.name), str)
 
-    def test_for_created_at(self):
-        """test for instance creation"""
-        b1 = BaseModel()
-        self.assertEqual(type(b1.created_at), type(datetime.now()))
-        self.assertTrue(hasattr(b1, "created_at"))
+    def test_description(self):
+        """test for description"""
+        ln = Place()
+        ln.last_name = "dasa"
+        self.assertEqual(type(Place.name), str)
 
-    def test_for_updated_at(self):
-        """test for updated_at"""
-        b1 = BaseModel()
-        self.assertTrue(hasattr(b1, "updated_at"))
-        self.assertEqual(type(b1.updated_at), type(datetime.now()))
-        time = b1.updated_at
-        self.assertEqual(time, b1.updated_at)
-        b1.save()
-        self.assertNotEqual(time, b1.updated_at)
+    def test_for_number_rooms(self):
+        """test for number_rooms"""
+        ln = Place()
+        ln.number_rooms = 2
+        self.assertEqual(type(Place.number_rooms), int)
 
-    def test_for_attribute(self):
-        """tests to check for attributes if present"""
-        my_object = BaseModel()
-        self.assertTrue(hasattr(my_object, "id"))
-        self.assertTrue(hasattr(my_object, "created_at"))
-        self.assertTrue(hasattr(my_object, "updated_at"))
+    def test_number_bathrooms(self):
+        """test for number_bathrooms"""
+        ln = Place()
+        ln.number_bathrooms = 1
+        self.assertEqual(type(Place.number_bathrooms), int)
 
-    def test_to_invalid_args(self):
-        """test to check for invalid argument"""
-        with self.assertRaises(TypeError):
-            my_object = BaseModel(**"Holberton")
+    def test_for_max_guest(self):
+        """test for max_guest"""
+        ln = Place()
+        ln.max_guest = 4
+        self.assertEqual(type(Place.max_guest), int)
 
-    def test_to_wrong_args(self):
-        """test to check for wrong args being passed"""
-        with self.assertRaises(TypeError):
-            my_object = BaseModel(**"Holber")
+    def test_for_price_by_night(self):
+        """test for price by night"""
+        ln = Place()
+        ln.price_by_night = 120
+        self.assertEqual(type(Place.price_by_night), int)
 
-    def test_to_wrong_type(self):
-        """test to check for passing int"""
-        with self.assertRaises(TypeError):
-            my_object = BaseModel(**12)
+    def test_latitude(self):
+        """test for latitude"""
+        ln = Place()
+        ln.latitude = 35.67
+        self.assertEqual(type(Place.latitude), float)
 
-    def test_to_wrong_type_float(self):
-        """test to check for passing float"""
-        with self.assertRaises(TypeError):
-            my_object = BaseModel(**5.2)
+    def test_longitude(self):
+        """test for longitude"""
+        ln = Place()
+        ln.longitude = 167.86
+        self.assertEqual(type(Place.longitude), float)
 
-    def test_wrong_type_for_args(self):
-        """test to check for passing float"""
-        with self.assertRaises(ValueError):
-            my_object = BaseModel(**float("betty"))
-
-    def test_for_empty_dict(self):
-        """test to check for attributes in the dict"""
-        my_object = BaseModel(**{})
-        self.assertTrue(hasattr(my_object, "id"))
-        self.assertTrue(hasattr(my_object, "created_at"))
-        self.assertTrue(hasattr(my_object, "updated_at"))
-
-    def test_for_different_args(self):
-        """tests to check for different parameters"""
-        with self.assertRaises(TypeError):
-            my_object = BaseModel(**[])
-            my_object = BaseModel(**15)
-            my_object = BaseModel(**24.66)
-            my_object = BaseModel(**"sneha")
-            self.assertTrue(hasattr(my_object, "id"))
-            self.assertTrue(hasattr(my_object, "created_at"))
-            self.assertTrue(hasattr(my_object, "updated_at"))
-
-    def test_for_datetime(self):
-        """test to check for datetime diff"""
-        my_object = BaseModel()
-        date = datetime.now()
-        time_diff = my_object.updated_at - my_object.created_at
-        self.assertTrue(abs(time_diff.total_seconds()) < 0.01)
-
-    def test_for_datetime(self):
-        """test to check for approx time diff"""
-        my_object = BaseModel()
-        date = datetime.now()
-        time_diff = my_object.created_at - my_object.updated_at
-        self.assertTrue(abs(time_diff.total_seconds()) < 0.1)
-
-    def test_to_string(self):
-        """test to check for correct string being passed"""
-        my_object = BaseModel()
-        s = "[{}] ({}) {}".format(my_object.__class__.__name__,
-                                  my_object.id, my_object.__dict__)
-        self.assertEqual(s, str(my_object))
-
-    def test_for_uuid(self):
-        """test to check for correct uuid"""
-        my_object = BaseModel()
-        self.assertTrue(my_object.id)
-
-    def test_for_creating_instance_and_to_dict(self):
-        """test for creating multiple instance and to_dict method"""
-        b2 = BaseModel()
-        b2.name = "Holberton"
-        b2.my_number = 89
-        b3 = b2.to_dict()
-        self.assertEqual(type(b3), dict)
-        self.assertTrue('__class__' in b3)
-        self.assertTrue('id' in b3)
-        self.assertTrue('created_at' in b3)
-        self.assertTrue('updated_at' in b3)
-        self.assertTrue('name' in b3)
-        self.assertTrue('my_number' in b3)
-
-        b4 = BaseModel(**b3)
-        self.assertEqual(b2.id, b4.id)
-        self.assertEqual(b2.created_at, b4.created_at)
-        self.assertEqual(b2.updated_at, b4.updated_at)
-        self.assertEqual(b2.name, b4.name)
-        self.assertEqual(b2.my_number, b4.my_number)
-        self.assertNotEqual(b2, b4)
+    def test_amenity_ids(self):
+        """test for amenity_ids"""
+        ln = Place()
+        ln.amenity_ids = "dasa"
+        self.assertEqual(type(Place.amenity_ids), list)
 
 if __name__ == "__main__":
     unittest.main()
