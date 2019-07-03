@@ -27,25 +27,25 @@ class TestUser(unittest.TestCase):
         """test for email"""
         e = User()
         e.email = "abc"
-        self.assertEqual(type(e.email), str)
+        self.assertEqual(type(User.email), str)
 
     def test_password(self):
         """test for password"""
         p = User()
         p.password = "efg"
-        self.assertEqual(type(p.password), str)
+        self.assertEqual(type(User.password), str)
 
     def test_first_name(self):
         """test for first_name"""
         fn = User()
         fn.first_name = "van"
-        self.assertEqual(type(fn.first_name), str)
+        self.assertEqual(type(User.first_name), str)
 
     def test_last_name(self):
         """test for last_name"""
         ln = User()
         ln.last_name = "phan"
-        self.assertEqual(type(ln.last_name), str)
+        self.assertEqual(type(User.last_name), str)
 
 if __name__ == "__main__":
     unittest.main()
