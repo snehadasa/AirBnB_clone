@@ -32,6 +32,9 @@ class TestFileStorage(unittest.TestCase):
     def test_for_object(self):
         """test cases for object"""
         self.assertEqual(type(storage._FileStorage__objects), dict)
+        f = FileStorage
+        with self.assertRaises(AttributeError):
+            f.objects
 
     def test_for_all(self):
         """test for function all"""
@@ -45,6 +48,14 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(type(fil.all()), dict)
         fil.new(BaseModel())
         self.assertTrue(fil.all())
+
+    def test_for_all_2(self):
+        """third test for all method"""
+        a1 = BaseModel()
+        a2 = BaseModel()
+        dic = storage.all()
+        self.assertTrue("BaseModel.{}".format(a1.id) in dic)
+        self.assertTrue("BaseModel.{}".format(a2.id) in dic)
 
     def test_for_save(self):
         """test for save function"""
@@ -60,16 +71,11 @@ class TestFileStorage(unittest.TestCase):
 
     def test_for_new(self):
         """test for new method"""
-        a1 = BaseModel()
-        a2 = BaseModel()
-        dic = storage.all()
-        self.assertTrue("BaseModel.{}".format(a1.id) in dic)
-        self.assertTrue("BaseModel.{}".format(a2.id) in dic)
         f = FileStorage()
-        self.assertEqual(f.objects, {})
-        self.assertFalse("BaseModel.{}".format(a1.id) in f.objects)
+        a1 = BaseModel()
         f.new(a1)
-        self.assertTrue("BaseModel.{}".format(a1.id) in f.objects)
+        key = "BaseModel" + "." + a1.id
+        self.assertTrue(key in f.all())
 
     def test_for_new_with_other_types(self):
         """check for other object types"""
