@@ -49,7 +49,7 @@ class TestFileStorage(unittest.TestCase):
         fil.new(BaseModel())
         self.assertTrue(fil.all())
 
-    def test_for_all_2(self):
+    def test_for_all_3(self):
         """third test for all method"""
         a1 = BaseModel()
         a2 = BaseModel()
@@ -110,8 +110,10 @@ class TestFileStorage(unittest.TestCase):
         my_model.name = "Holberton"
         my_model.my_number = 89
         my_model.save()
+        key = "BaseModel" + "." + my_model.id
 
         all_objs = storage.all()
+        self.assertNotEqual(all_objs[key], None)
         self.assertEqual(storage._FileStorage__objects, all_objs)
         key = "BaseModel" + "." + my_model.id
         self.assertTrue(key in all_objs)
@@ -122,6 +124,12 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(hasattr(all_objs[key], "updated_at"))
         self.assertTrue(hasattr(all_objs[key], "name"))
         self.assertTrue(hasattr(all_objs[key], "my_number"))
+
+    def test_reload_3(self):
+        """third test for reload"""
+        b1 = BaseModel()
+        b2 = BaseModel()
+        
 
 if __name__ == '__main__':
     unittest.main()
