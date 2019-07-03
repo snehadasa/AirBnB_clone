@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Unittest for storage class FileStorage"""
+"""This Unittest for storage class FileStorage"""
 
 import unittest
 import json
@@ -43,12 +43,11 @@ class TestFileStorage(unittest.TestCase):
 
     def test_for_save(self):
         """test for save function"""
-        c = BaseModel()
         s = FileStorage()
-        c.name = "Holberton"
-        c.my_number = 89
-        c.save()
+        s.new(BaseModel())
+        self.assertFalse(os.path.exists("file.json"))
         s.save()
+        self.assertTrue(os.path.exists("file.json"))
         with open("file.json", 'r') as f:
             self.assertEqual(type(f.read()), str)
         self.assertNotEqual(os.stat("file.json").st_size, 0)
