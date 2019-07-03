@@ -36,14 +36,19 @@ class TestFileStorage(unittest.TestCase):
     def test_for_all_2(self):
         """second test for all method"""
         fil = FileStorage()
+        self.assertEqual(fil.all(), {})
         self.assertEqual(type(fil.all()), dict)
+        fil.new(BaseModel())
+        self.assertTrue(fil.all())
 
     def test_for_save(self):
         """test for save function"""
         c = BaseModel()
+        s = FileStorage()
         c.name = "Holberton"
         c.my_number = 89
         c.save()
+        s.save()
         with open("file.json", 'r') as f:
             self.assertEqual(type(f.read()), str)
         self.assertNotEqual(os.stat("file.json").st_size, 0)
@@ -55,6 +60,26 @@ class TestFileStorage(unittest.TestCase):
         dic = storage.all()
         self.assertTrue("BaseModel.{}".format(a1.id) in dic)
         self.assertTrue("BaseModel.{}".format(a2.id) in dic)
+
+    def test_for_new_with_other_types(self):
+        """check for other object types"""
+        f = FileStorage()
+        with self.assertRaises(NameError):
+            f.new(oh)
+        with self.assertRaisesRegex(AttributeError,
+                                    "'float' object has no attribute 'id'"):
+            f.new(float("nan"))
+        with self.assertRaisesRegex(AttributeError,
+                                    "'int' object has no attribute 'id'"):
+            f.new(12)
+        with self.assertRaisesRegex(AttributeError,
+                                    "'str' object has no attribute 'id'"):
+            f.new("hi")
+        with self.assertRaises(TypeError):
+            f.new()
+        with self.assertRaisesRegex(AttributeError,
+                                    "'list' object has no attribute 'id'"):
+            f.new([1, 2])
 
     def test_for_reload(self):
         """test for reload function"""
