@@ -27,7 +27,6 @@ class TestFileStorage(unittest.TestCase):
 
     def test_for_all(self):
         """test for function all"""
-        a = BaseModel()
         a1 = storage.all()
         self.assertEqual(type(a1), dict)
 
@@ -58,6 +57,11 @@ class TestFileStorage(unittest.TestCase):
         dic = storage.all()
         self.assertTrue("BaseModel.{}".format(a1.id) in dic)
         self.assertTrue("BaseModel.{}".format(a2.id) in dic)
+        f = FileStorage()
+        self.assertEqual(f.objects, {})
+        self.assertFalse("BaseModel.{}".format(a1.id) in f.objects)
+        f.new(a1)
+        self.assertTrue("BaseModel.{}".format(a1.id) in f.objects)
 
     def test_for_new_with_other_types(self):
         """check for other object types"""
