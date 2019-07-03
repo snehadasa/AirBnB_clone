@@ -90,3 +90,6 @@ class TestFileStorage(unittest.TestCase):
         f1.__objects = {}
         f1.reload()
         self.assertTrue(f1.all()[key])
+
+if __name__ == '__main__':
+    unittest.main()
