@@ -1,6 +1,6 @@
 **AirBnB clone - The Console**
 
-![hbnb logo](https://imgur.com/OilEsXV.png"hbnb logo")
+![hbnb Logo](https://imgur.com/OilEsXV.png "hbnb logo")
 
 **Overview**
 
@@ -13,6 +13,7 @@ This is the first step towards building the full web application: the AirBnB clo
 3. Do operations on objects
 4. Update attributes of an object
 5. Destroy an object
+
 **Usage**
 
 1. The console works in both interactive and non-interactive modes.
