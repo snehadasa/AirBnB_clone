@@ -25,6 +25,14 @@ class TestFileStorage(unittest.TestCase):
         if os.path.exists("file.json"):
             os.remove("file.json")
 
+    def test_for_file_path(self):
+        """test cases for file_path"""
+        self.assertEqual(type(storage._FileStorage__file_path), str)
+
+    def test_for_object(self):
+        """test cases for object"""
+        self.assertEqual(type(storage._FileStorage__objects), dict)
+
     def test_for_all(self):
         """test for function all"""
         a1 = storage.all()
@@ -41,7 +49,7 @@ class TestFileStorage(unittest.TestCase):
     def test_for_save(self):
         """test for save function"""
         s = FileStorage()
-        s.__objects = {}
+        s._FileStorage__objects = {}
         s.new(BaseModel())
         self.assertFalse(os.path.exists("file.json"))
         s.save()
@@ -86,7 +94,7 @@ class TestFileStorage(unittest.TestCase):
         key = "BaseModel" + "." + f2.id
         f1.new(f2)
         f1.save()
-        f1.__objects = {}
+        f1._FileStorage__objects = {}
         f1.reload()
         self.assertTrue(f1.all()[key])
 
