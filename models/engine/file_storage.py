@@ -15,31 +15,8 @@ from models.review import Review
 
 class FileStorage():
     """class FileStorage"""
-
-    def __init__(self):
-        """retrive file_path and objects"""
-        self.file_path = "file.json"
-        self.objects = {}
-
-    @property
-    def file_path(self):
-        """property file_path"""
-        return self.__file_path
-
-    @file_path.setter
-    def file_path(self, value):
-        """file_path setter"""
-        self.__file_path = value
-
-    @property
-    def objects(self):
-        """property object"""
-        return self.__objects
-
-    @objects.setter
-    def objects(self, value):
-        """objects setter"""
-        self.__objects = value
+    __file_path = "file.json"
+    __objects = {}
 
     def all(self):
         """returns dictionary of objects"""
