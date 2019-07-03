@@ -17,21 +17,26 @@ class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
         """setting up test methods"""
-        self.set = FileStorage()
+        if os.path.exists("file.json"):
+            os.remove("file.json")
 
     def tearDown(self):
         """tears test modules"""
-        pass
+        if os.path.exists("file.json"):
+            os.remove("file.json")
 
-    def test_save_method(self):
-        """test to check for the attr is string"""
-        attr = {"id": {"__class__": "BaseModel"}}
-        self.assertTrue(type(json.dumps(attr)) is str)
+    def test_for_all(self):
+        """test for function all"""
+        a = BaseModel()
+        a1 = storage.all()
+        for k, v in a1.items():
+            self.assertEqual(type(v), type(a))
 
-    def test_for_attributes(self):
-        """test to check for the correct attribute"""
-        self.assertFalse(hasattr(self.set, "name"))
-        self.assertFalse(hasattr(self.set, "my_number"))
-        self.assertFalse(hasattr(self.set, "created_at"))
-        self.assertFalse(hasattr(self.set, "updated_at"))
-        self.assertFalse(hasattr(self.set, "id"))
+    def test_for_save(self):
+        c = BaseModel()
+        c.name = "Holberton"
+        c.my_number = 89
+        c.save()
+        self.assertTrue(os.path.exists("file.json"))
+        with open("file.json", 'r') as f:
+            self.assertEqual(type(f.read()), str)
