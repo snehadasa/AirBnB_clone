@@ -95,5 +95,5 @@ All the code are tested using Unittest Module.The unittest module provides a ric
 
 **Authors**
 
-**Van Duy Phan** - @Van_D_Phan
 **Sneha Dasa Lakshminath** - @DasaSneha
+**Van Duy Phan** - @Van_D_Phan
