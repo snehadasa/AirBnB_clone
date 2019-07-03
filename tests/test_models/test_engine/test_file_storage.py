@@ -98,5 +98,24 @@ class TestFileStorage(unittest.TestCase):
         f1.reload()
         self.assertTrue(f1.all()[key])
 
+    def test_reload_2(self):
+        """test check the reload output"""
+        my_model = BaseModel()
+        my_model.name = "Holberton"
+        my_model.my_number = 89
+        my_model.save()
+
+        all_objs = storage.all()
+        self.assertEqual(storage._FileStorage__objects, all_objs)
+        key = "BaseModel" + "." + my_model.id
+        self.assertTrue(key in all_objs)
+        self.assertEqual(type(all_objs[key]), type(BaseModel()))
+        self.assertTrue(hasattr(all_objs[key], "__class__"))
+        self.assertTrue(hasattr(all_objs[key], "id"))
+        self.assertTrue(hasattr(all_objs[key], "created_at"))
+        self.assertTrue(hasattr(all_objs[key], "updated_at"))
+        self.assertTrue(hasattr(all_objs[key], "name"))
+        self.assertTrue(hasattr(all_objs[key], "my_number"))
+
 if __name__ == '__main__':
     unittest.main()
