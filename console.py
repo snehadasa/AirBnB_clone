@@ -169,6 +169,12 @@ class HBNBCommand(cmd.Cmd):
             b = l[1].split('"')
             name_1 = l[0] + " " + b[1]
             return self.do_destroy(name_1)
+        if l[1][:6] == "update":
+            c = l[1].split(',')
+            d = c[0].split("(")
+            name_2 = l[0] + " " + d[1][1:-1] + " " + c[1][2:-1] + " " + c[2][1:-1]
+            return self.do_update(name_2)
+
 
 
 def isfloat(value):
