@@ -29,14 +29,40 @@ class TestFileStorage(unittest.TestCase):
         """test for function all"""
         a = BaseModel()
         a1 = storage.all()
+        self.assertEqual(type(a1), dict)
         for k, v in a1.items():
             self.assertEqual(type(v), type(a))
 
+    def test_for_all_2(self):
+        """second test for all method"""
+        fil = FileStorage()
+        self.assertEqual(type(fil.all()), dict)
+
     def test_for_save(self):
+        """test for save function"""
         c = BaseModel()
         c.name = "Holberton"
         c.my_number = 89
         c.save()
-        self.assertTrue(os.path.exists("file.json"))
         with open("file.json", 'r') as f:
             self.assertEqual(type(f.read()), str)
+        self.assertNotEqual(os.stat("file.json").st_size, 0)
+
+    def test_for_new(self):
+        """test for new method"""
+        a1 = BaseModel()
+        a2 = BaseModel()
+        dic = storage.all()
+        self.assertTrue("BaseModel.{}".format(a1.id) in dic)
+        self.assertTrue("BaseModel.{}".format(a2.id) in dic)
+
+    def test_for_reload(self):
+        """test for reload function"""
+        f1 = FileStorage()
+        f2 = BaseModel()
+        key = "BaseModel" + "." + f2.id
+        f1.new(f2)
+        f1.save()
+        f1.__objects = {}
+        f1.reload()
+        self.assertTrue(f1.all()[key])
