@@ -28,11 +28,14 @@ class TestFileStorage(unittest.TestCase):
     def test_for_file_path(self):
         """test cases for file_path"""
         self.assertEqual(type(storage._FileStorage__file_path), str)
+        f1 = FileStorage()
+        with self.assertRaises(AttributeError):
+            f1.objects
 
     def test_for_object(self):
         """test cases for object"""
         self.assertEqual(type(storage._FileStorage__objects), dict)
-        f = FileStorage
+        f = FileStorage()
         with self.assertRaises(AttributeError):
             f.objects
 
@@ -110,10 +113,8 @@ class TestFileStorage(unittest.TestCase):
         my_model.name = "Holberton"
         my_model.my_number = 89
         my_model.save()
-        key = "BaseModel" + "." + my_model.id
 
         all_objs = storage.all()
-        self.assertNotEqual(all_objs[key], None)
         self.assertEqual(storage._FileStorage__objects, all_objs)
         key = "BaseModel" + "." + my_model.id
         self.assertTrue(key in all_objs)
@@ -125,11 +126,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(hasattr(all_objs[key], "name"))
         self.assertTrue(hasattr(all_objs[key], "my_number"))
 
-    def test_reload_3(self):
-        """third test for reload"""
-        b1 = BaseModel()
-        b2 = BaseModel()
-        
 
 if __name__ == '__main__':
     unittest.main()
