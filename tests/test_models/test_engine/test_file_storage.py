@@ -47,7 +47,6 @@ class TestFileStorage(unittest.TestCase):
     def test_for_all_2(self):
         """second test for all method"""
         fil = FileStorage()
-        self.assertEqual(fil.all(), {})
         self.assertEqual(type(fil.all()), dict)
         fil.new(BaseModel())
         self.assertTrue(fil.all())

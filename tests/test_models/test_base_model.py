@@ -61,6 +61,15 @@ class TestBaseModel(unittest.TestCase):
         b1.save()
         self.assertNotEqual(time, b1.updated_at)
 
+    def test_for_save(self):
+        """test for save"""
+        b2 = BaseModel()
+        time1 = b2.updated_at
+        b2.save()
+        time2 = b2.updated_at
+        self.assertEqual(type(time2), type(datetime.now()))
+        self.assertNotEqual(time1, time2)
+
     def test_for_attribute(self):
         """tests to check for attributes if present"""
         my_object = BaseModel()
