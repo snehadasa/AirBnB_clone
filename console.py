@@ -170,11 +170,24 @@ class HBNBCommand(cmd.Cmd):
             name_1 = l[0] + " " + b[1]
             return self.do_destroy(name_1)
         if l[1][:6] == "update":
-            c = l[1].split(',')
-            d = c[0].split("(")
-            name_2 = l[0] + " " + d[1][1:-1] + " " + c[1][2:-1] + " " + c[2][1:-1]
-            return self.do_update(name_2)
-
+            if not is_dict_representation(line):
+                c = l[1].split(',')
+                d = c[0].split("(")
+                name_2 = l[0] + " " + d[1][1:-1] + " " + c[1][2:-1] + " " + c[2][1:-1]
+                return self.do_update(name_2)
+            else:
+                c = l[1].split("(")
+                d = c[1].split("{")
+                e = eval("{" + d[1][:-1])
+                for key, value in e.items():
+                    new_value = value
+                    if (isinstance(value, str)):
+                        new_value = "'" + value + "'"
+                    else:
+                        new_value = str(value)
+                    name2 = l[0] + " " + d[0][1:-3] + " " + key + " " + new_value
+                    self.do_update(name2)
+                return
 
 
 def isfloat(value):
@@ -193,6 +206,15 @@ def isint(value):
         return True
     except ValueError:
         return False
+
+def is_dict_representation(line):
+    """to check if its dictionary representation"""
+    l = line.split(".")
+    c = l[1].split("(")
+    for i in c[1][:-1]:
+        if i is '{':
+            return True
+    return False
 
 
 if __name__ == "__main__":
