@@ -30,7 +30,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(type(storage._FileStorage__file_path), str)
         f1 = FileStorage()
         with self.assertRaises(AttributeError):
-            f1.objects
+            f1.file_path
 
     def test_for_object(self):
         """test cases for object"""
