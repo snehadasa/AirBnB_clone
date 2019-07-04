@@ -67,7 +67,7 @@ class TestFileStorage(unittest.TestCase):
         s.new(BaseModel())
         self.assertFalse(os.path.exists("file.json"))
         s.save()
-        self.assertTrue(os.path.isfile("file.json"))
+        self.assertTrue(os.path.exists("file.json"))
         with open("file.json", 'r') as f:
             self.assertEqual(type(f.read()), str)
         self.assertNotEqual(os.stat("file.json").st_size, 0)
@@ -113,8 +113,10 @@ class TestFileStorage(unittest.TestCase):
         my_model.name = "Holberton"
         my_model.my_number = 89
         my_model.save()
-        key = "BaseModel" + "." + my_model.id
+
         all_objs = storage.all()
+        self.assertEqual(storage._FileStorage__objects, all_objs)
+        key = "BaseModel" + "." + my_model.id
         self.assertTrue(key in all_objs)
         self.assertEqual(type(all_objs[key]), type(BaseModel()))
         self.assertTrue(hasattr(all_objs[key], "__class__"))
