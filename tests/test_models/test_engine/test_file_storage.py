@@ -75,12 +75,9 @@ class TestFileStorage(unittest.TestCase):
     def test_for_new(self):
         """test for new method"""
         f = FileStorage()
-        f._FileStorage__objects = {}
-        self.assertEqual(f.all(), {})
         a1 = BaseModel()
         f.new(a1)
         key = "BaseModel" + "." + a1.id
-        self.assertNotEqual(f.all(), {})
         self.assertTrue(key in f.all())
 
     def test_for_new_with_other_types(self):
@@ -117,9 +114,7 @@ class TestFileStorage(unittest.TestCase):
         my_model.my_number = 89
         my_model.save()
         key = "BaseModel" + "." + my_model.id
-        self.assertNotEqual(storage.all()[key], None)
         all_objs = storage.all()
-        self.assertEqual(storage._FileStorage__objects, all_objs)
         self.assertTrue(key in all_objs)
         self.assertEqual(type(all_objs[key]), type(BaseModel()))
         self.assertTrue(hasattr(all_objs[key], "__class__"))
