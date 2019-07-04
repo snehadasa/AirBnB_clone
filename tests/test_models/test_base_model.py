@@ -69,6 +69,7 @@ class TestBaseModel(unittest.TestCase):
         time2 = b2.updated_at
         self.assertEqual(type(time2), type(datetime.now()))
         self.assertNotEqual(time1, time2)
+        self.assertTrue(time1 < time2)
 
     def test_for_attribute(self):
         """tests to check for attributes if present"""

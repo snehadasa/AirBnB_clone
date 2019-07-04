@@ -125,6 +125,12 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(hasattr(all_objs[key], "name"))
         self.assertTrue(hasattr(all_objs[key], "my_number"))
 
+    def test_for_save_and_reload(self):
+        """test for save and reload"""
+        b5 = BaseModel()
+        key = "BaseModel" + "." + b5.id
+        b5.save()
+        self.assertFalse(storage.all()[key] is None)
 
 if __name__ == '__main__':
     unittest.main()
