@@ -29,15 +29,16 @@ Some of the following are,
 | 1. | Quit | Quits the console | (hbnb) quit |
 | 2. | Help | Displays the help for particular commands | (hbnb) help |
 | 3. | Create | creates an object | (hbnb) create <class> |
-| 3. | Show | show an object | (hbnb) show <class> <id> |
-| 3. | Destroy | destroys an object | (hbnb) destroy <class> <id> |
-| 3. | All | shows all objects | (hbnb) all <class> <id> |
-| 3. | Update | updates an attribute with an object | (hbnb) create <class> <id> <attribute name> "<attribute value>"|
+| 4. | Show | show an object | (hbnb) show <class> <id> |
+| 5. | Destroy | destroys an object | (hbnb) destroy <class> <id> |
+| 6. | All | shows all objects | (hbnb) all <class> <id> |
+| 7. | Update | updates an attribute with an object | (hbnb) create <class> <id> <attribute name> "<attribute value>"|
 | 3. | Run | run the console | ./console.py |
 
 **examples**
 
 $ ./console.py
+
 (hbnb) help
 
 Documented commands (type help <topic>):
