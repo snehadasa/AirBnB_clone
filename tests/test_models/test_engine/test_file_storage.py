@@ -129,8 +129,12 @@ class TestFileStorage(unittest.TestCase):
         """test for save and reload"""
         b5 = BaseModel()
         key = "BaseModel" + "." + b5.id
+        d = b5.updated_at
         b5.save()
-        self.assertFalse(storage.all()[key] is None)
+        c = b5.updated_at
+        self.assertTrue(d < c)
+        obj = storage.all()
+        self.assertEqual(c, obj[key].updated_at)
 
 if __name__ == '__main__':
     unittest.main()
