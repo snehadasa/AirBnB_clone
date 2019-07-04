@@ -84,7 +84,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertNotEqual(f.all(), {})
         self.assertTrue(key in f.all())
 
-
     def test_for_new_with_other_types(self):
         """check for other object types"""
         f = FileStorage()
