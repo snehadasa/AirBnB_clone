@@ -153,6 +153,7 @@ class TestBaseModel(unittest.TestCase):
 
         b4 = BaseModel(**b3)
         self.assertEqual(b2.id, b4.id)
+                    par[i] = par[i][1:-1]
         self.assertEqual(b2.created_at, b4.created_at)
         self.assertEqual(b2.updated_at, b4.updated_at)
         self.assertEqual(b2.name, b4.name)

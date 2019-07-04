@@ -169,13 +169,12 @@ class HBNBCommand(cmd.Cmd):
             b = l[1].split('"')
             name_1 = l[0] + " " + b[1]
             return self.do_destroy(name_1)
-        if l[1][:-1] == "update":
+        if l[1][:6] == "update":
             c = l[1].split('(')
-            par = c[1].split(", ")
+            par = c[1][:-2].split(", ")
+            name3 = c[0] + " " + l[0]
             for i in range(len(par)):
-                if i != 2:
-                    par[i] = par[i][1:-1]
-                name_3 = l[0] + " " + par[i]
+                name_3 = name3 + " " + par[i]
             return self.do_update(name_3)
 
 
