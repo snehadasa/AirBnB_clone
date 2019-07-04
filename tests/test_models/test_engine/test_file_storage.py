@@ -57,7 +57,6 @@ class TestFileStorage(unittest.TestCase):
         a1 = BaseModel()
         a2 = BaseModel()
         dic = storage.all()
-        self.assertTrue(storage.all())
         self.assertTrue("BaseModel.{}".format(a1.id) in dic)
         self.assertTrue("BaseModel.{}".format(a2.id) in dic)
 
@@ -66,7 +65,7 @@ class TestFileStorage(unittest.TestCase):
         s = FileStorage()
         s._FileStorage__objects = {}
         s.new(BaseModel())
-        self.assertFalse(os.path.isfile("file.json"))
+        self.assertFalse(os.path.exists("file.json"))
         s.save()
         self.assertTrue(os.path.isfile("file.json"))
         with open("file.json", 'r') as f:
