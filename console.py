@@ -173,8 +173,9 @@ class HBNBCommand(cmd.Cmd):
             if not is_dict_representation(line):
                 c = l[1].split(',')
                 d = c[0].split("(")
-                name_2 = l[0] + " " + d[1][1:-1] + " " + c[1][2:-1] + " " + c[2][1:-1]
-                return self.do_update(name_2)
+                d_id = d[1][1:-1]
+                n = l[0] + " " + d_id + " " + c[1][2:-1] + " " + c[2][1:-1]
+                return self.do_update(n)
             else:
                 c = l[1].split("(")
                 d = c[1].split("{")
@@ -185,8 +186,8 @@ class HBNBCommand(cmd.Cmd):
                         new_value = "'" + value + "'"
                     else:
                         new_value = str(value)
-                    name2 = l[0] + " " + d[0][1:-3] + " " + key + " " + new_value
-                    self.do_update(name2)
+                    n = l[0] + " " + d[0][1:-3] + " " + key + " " + new_value
+                    self.do_update(n)
                 return
 
 
@@ -206,6 +207,7 @@ def isint(value):
         return True
     except ValueError:
         return False
+
 
 def is_dict_representation(line):
     """to check if its dictionary representation"""
