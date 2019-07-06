@@ -71,16 +71,6 @@ class TestFileStorage(unittest.TestCase):
             self.assertEqual(type(f.read()), str)
         self.assertNotEqual(os.stat("file.json").st_size, 0)
 
-    def test_for_save_BaseModel(self):
-        """test for save BaseModel"""
-        a = BaseModel()
-        a.id = 12
-        a.save()
-        self.assertEqual(a.id, 12)
-        self.assertTrue(hasattr(a, "id"))
-        with open("file.json") as f:
-            self.assertTrue('"id": 12' in f.read())
-
     def test_for_new(self):
         """test for new method"""
         f = FileStorage()

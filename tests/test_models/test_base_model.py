@@ -11,7 +11,7 @@ from models import storage
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from datetime import datetime
-
+from time import sleep
 
 class TestBaseModel(unittest.TestCase):
     """unittests for BaseModel class"""
@@ -65,11 +65,17 @@ class TestBaseModel(unittest.TestCase):
         """test for save"""
         b2 = BaseModel()
         time1 = b2.updated_at
+        sleep(.5)
+        b2.id = 12
         b2.save()
         time2 = b2.updated_at
         self.assertEqual(type(time2), type(datetime.now()))
         self.assertNotEqual(time1, time2)
         self.assertTrue(time1 < time2)
+        self.assertTrue(b2.id == 12)
+        self.assertTrue(hasattr(b2, "id"))
+        with open("file.json") as f:
+            self.assertTrue('"id": 12' in f.read())
 
     def test_for_attribute(self):
         """tests to check for attributes if present"""
