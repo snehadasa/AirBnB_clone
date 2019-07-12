@@ -47,7 +47,6 @@ class TestFileStorage(unittest.TestCase):
     def test_for_all_2(self):
         """second test for all method"""
         fil = FileStorage()
-        self.assertEqual(fil.all(), {})
         self.assertEqual(type(fil.all()), dict)
         fil.new(BaseModel())
         self.assertTrue(fil.all())
@@ -75,14 +74,10 @@ class TestFileStorage(unittest.TestCase):
     def test_for_new(self):
         """test for new method"""
         f = FileStorage()
-        f._FileStorage__objects = {}
-        self.assertEqual(f.all(), {})
         a1 = BaseModel()
         f.new(a1)
         key = "BaseModel" + "." + a1.id
-        self.assertNotEqual(f.all(), {})
         self.assertTrue(key in f.all())
-
 
     def test_for_new_with_other_types(self):
         """check for other object types"""
@@ -117,10 +112,10 @@ class TestFileStorage(unittest.TestCase):
         my_model.name = "Holberton"
         my_model.my_number = 89
         my_model.save()
-        key = "BaseModel" + "." + my_model.id
-        self.assertNotEqual(storage.all()[key], None)
+
         all_objs = storage.all()
         self.assertEqual(storage._FileStorage__objects, all_objs)
+        key = "BaseModel" + "." + my_model.id
         self.assertTrue(key in all_objs)
         self.assertEqual(type(all_objs[key]), type(BaseModel()))
         self.assertTrue(hasattr(all_objs[key], "__class__"))
@@ -130,6 +125,16 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(hasattr(all_objs[key], "name"))
         self.assertTrue(hasattr(all_objs[key], "my_number"))
 
+    def test_for_save_and_reload(self):
+        """test for save and reload"""
+        b5 = BaseModel()
+        key = "BaseModel" + "." + b5.id
+        d = b5.updated_at
+        b5.save()
+        c = b5.updated_at
+        self.assertTrue(d < c)
+        obj = storage.all()
+        self.assertEqual(c, obj[key].updated_at)
 
 if __name__ == '__main__':
     unittest.main()

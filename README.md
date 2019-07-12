@@ -33,7 +33,7 @@ Some of the following are,
 | 5. | Destroy | destroys an object | (hbnb) destroy <class> <id> |
 | 6. | All | shows all objects | (hbnb) all <class> <id> |
 | 7. | Update | updates an attribute with an object | (hbnb) create <class> <id> <attribute name> "<attribute value>"|
-| 3. | Run | run the console | ./console.py |
+| 8. | Run | run the console | ./console.py |
 
 **examples**
 
