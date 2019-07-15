@@ -33,6 +33,7 @@ h4 {
 .locations {
 	width: 25%;
 	border-right: 1px solid #DDDDDD;
+	float: left;
 }
 .locations .popover {
 	margin-top: 12px;
@@ -42,7 +43,7 @@ h4 {
 }
 .amenities {
 	width: 25%;
-	position: absolute;
+	float: left;
 }
 .amenities .popover {
 	margin-top: 12px;
@@ -67,7 +68,6 @@ section div {
 	border-radius: 4px;
 	display: none;
 	background-color: #FAFAFA;
-	width: 100%;
 }
 .popover li {
 	line-height: 25px;
