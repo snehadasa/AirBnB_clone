@@ -44,6 +44,7 @@ h4 {
 	display: block;
 }
 .amenities {
+	height: 100%;
 	width: 25%;
 	float: left;
 }
