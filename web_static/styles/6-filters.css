@@ -31,7 +31,6 @@ h4 {
 	margin: 0 auto;
 }
 .locations {
-	height: 100%;
 	width: 25%;
 	border-right: 1px solid #DDDDDD;
 }
@@ -42,7 +41,6 @@ h4 {
 	display: block;
 }
 .amenities {
-	height: 100%;
 	width: 25%;
 	position: absolute;
 }
